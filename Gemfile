@@ -40,18 +40,20 @@ gem 'materialize-sass'
 gem 'validates_timeliness', '~> 4.0'
  # Push Notifications
 gem 'pusher'
+gem 'mongoid', '~> 5.1.0'
+gem 'mongo_followable'
 
+=begin
 gem 'acts_as_follower',
  git:'https://github.com/ishan-amura/acts_as_follower.git',
  branch: 'master'
-
-gem 'rails-observers'
+=end
+gem 'mongoid-observers', '~> 0.2.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   # Use sqlite3 as the database for Active Record
-	gem 'sqlite3'
 	# RSpec for tdd
 	gem 'rspec-rails', '>= 3.1'
   
@@ -73,7 +75,6 @@ group :development do
 end
 
 group :production do 
-	gem 'pg'
 	gem 'therubyracer', platforms: :ruby
 	gem 'rails_12factor'
 	gem 'puma'

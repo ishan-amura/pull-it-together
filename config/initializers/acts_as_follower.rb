@@ -1,1 +1,2 @@
-ActsAsFollower.custom_parent_classes = [Project,Task]
+=beginActsAsFollower.custom_parent_classes = [Project,Task]
+=end
