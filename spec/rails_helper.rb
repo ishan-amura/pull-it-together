@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'devise'
 require "pusher-fake/support/rspec"
+require 'mongoid-rspec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -27,7 +28,6 @@ require "pusher-fake/support/rspec"
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
-ActiveRecord::Migration.maintain_test_schema!
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
@@ -35,6 +35,7 @@ RSpec.configure do |config|
 	Rails.application.routes.default_url_options[:host] = "localhost:3000" 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.include Mongoid::Matchers, type: :model
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.

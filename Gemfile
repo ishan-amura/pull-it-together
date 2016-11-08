@@ -42,6 +42,7 @@ gem 'validates_timeliness', '~> 4.0'
 gem 'pusher'
 gem 'mongoid', '~> 5.1.0'
 gem 'mongo_followable'
+gem 'mongoid-autoinc'
 
 =begin
 gem 'acts_as_follower',
@@ -56,7 +57,8 @@ group :development, :test do
   # Use sqlite3 as the database for Active Record
 	# RSpec for tdd
 	gem 'rspec-rails', '>= 3.1'
-  
+  gem 'mongoid-rspec', '3.0.0'
+
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'simplecov', require: false

@@ -4,7 +4,7 @@ RSpec.describe NotificationsController, type: :controller do
 	before(:each) do 
 		@user = create(:user)
 		login_with @user
-		@project = create(:project, user_id: @user.id)
+		@project = create(:project, creator_id: @user.id)
 end
   describe "POST #create with valid data" do
     it "redirects to the task which got commented on" do

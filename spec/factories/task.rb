@@ -11,14 +11,14 @@ FactoryGirl.define do
 		f.taskable_type {["Task","Project"][rand(2)]}
 		association :user, factory: :user, strategy: :build	
   	
-  		association :taskable, factory: :project, strategy: :build
+  	association :taskable, factory: :project, strategy: :build
 
-	  	factory :task_taskable do
-	  		association :taskable, factory: :task, strategy: :build
-	  	end
-	  	trait :subtask_task do
-	  		association :taskable, factory: :task, strategy: :build
-	  	end
+	  factory :task_taskable do
+	  	association :taskable, factory: :task, strategy: :build
+	  end
+	  trait :subtask_task do
+	  	association :taskable, factory: :task, strategy: :build
+	  end
 	  	
-		end
+	end
 end

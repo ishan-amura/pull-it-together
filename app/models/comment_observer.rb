@@ -1,6 +1,6 @@
-class CommentObserver < ActiveRecord::Observer
+class CommentObserver < Mongoid::Observer
 	def after_save(comment)
-		comment.commentable.followers.each do |follower|
+		comment.commentable.all_followers.each do |follower|
 			notification_body = 	{
 				resource_id: comment.commentable.id,
 				recipient_id: follower.id,

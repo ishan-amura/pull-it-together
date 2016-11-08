@@ -28,7 +28,7 @@ puts "Creating projects..."
 		title: title,
 		deadline: deadline,
 		started_at: start,
-		user_id: 1,
+		creator: User.first,
 		description: description
 		)
 end
@@ -41,47 +41,47 @@ end
 		title: title,
 		deadline: deadline,
 		started_at: start,
-		user_id: rand(1..20),
+		creator: User.find_by(user_id: rand(1..20)),
 		description: description
 		)
 end
 puts "Adding members to projects..."
 50.times do |count|
-	user = User.find(rand(20..User.count))
-	project = Project.find(rand(1..Project.count))
+	user = User.find_by(user_id: rand(20..User.count))
+	project = Project.find_by(project_id: rand(1..Project.count))
 	if project.creator != user and !project.members.include?(user)
 		project.members << user
 	end	
-	project = Project.find(rand(1..Project.count))
+	project = Project.find_by(project_id: rand(1..Project.count))
 	project.tasks.create(
 		title: Faker::Lorem.sentence(3, true, 4),
-		user_id: rand(1..User.count),
+		user_id: User.find_by(user_id: rand(1..User.count)).id,
 		description: Faker::Lorem.paragraph,
 		started_at: Time.now,
 		due_date: rand(31).days.from_now
 		)
 
-	task = Task.find(rand(1..Task.count))
+	task = Task.find_by(task_id: rand(1..Task.count))
 	task.tasks.create(
 		title: Faker::Lorem.sentence(3, true, 4),
-		user_id: rand(1..User.count),
+		user_id: User.find_by(user_id:rand(1..User.count)).id,
 		description: Faker::Lorem.paragraph,
 		started_at: Time.now,
 		due_date: rand(31).days.from_now
 		)
 end
 100.times do |count|
-	task = Task.find(rand(1..Task.count))
+	task = Task.find_by(task_id: rand(1..Task.count))
 	task.comments.create(
 		body: Faker::Hacker.say_something_smart,
-		user_id: rand(1..User.count)
+		user_id: User.find_by(user_id: rand(1..User.count)).id
 		)
 end 
 
 30.times do |count|
-	project = Project.find(rand(1..Project.count))
+	project = Project.find_by(project_id: rand(1..Project.count))
 	project.posts.create(
 		title: Faker::Lorem.sentence(3, true, 4),
-		user_id: rand(1..User.count),
+		user_id: User.find_by(user_id: rand(1..User.count)).id,
 		body: Faker::Hacker.say_something_smart)
 end

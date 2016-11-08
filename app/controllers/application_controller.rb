@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_user!
-  	redirect_to current_user unless current_user.id.to_i == params[:id].to_i
+  		redirect_to current_user unless current_user.id == params[:id]
   end
 
   def configure_permitted_parameters

@@ -1,10 +1,24 @@
-class Task < ActiveRecord::Base
+class Task
+	include Mongoid::Document
+	include Mongoid::Timestamps
+	include Mongoid::Autoinc
+  field :task_id,type: Integer
+  increments :task_id
+  
+  field :title, type: String
+  field :priority, type: String, default:->{"normal"}
+  field :status, type: String, default:->{"none"}
+  field :progress, type: Integer,default:->{0}
+  field :description, type: String
+  field :started_at, type: DateTime
+  field :due_date, type: DateTime
+
 	belongs_to :taskable, polymorphic: true
 	has_many :tasks, as: :taskable, dependent: :destroy
 	belongs_to :user
 	has_many :comments, as: :commentable
 	has_many :labels, as: :labelable
-	acts_as_followable
+  include Mongo::Followable::Followed
 	after_save :set_user_as_follower, if: :user_id_changed?
 	after_create :set_project_creator_as_follower
 	after_find :set_progress
@@ -17,7 +31,6 @@ class Task < ActiveRecord::Base
 	validates :progress, presence: true ,
 	numericality: { only_integer: true }, length: {maximum: 3}
 	validates :user_id, presence: true
-
 	def parent_project
 		return self.taskable if self.taskable.class.name == 'Project'
 		self.taskable.parent_project
@@ -35,12 +48,16 @@ class Task < ActiveRecord::Base
 	end
 	private
 	def set_user_as_follower
-		self.user.follow(self)
+		unless self.user.follower_of?(self)
+			self.user.follow(self)
+		end
 	end
 	def set_project_creator_as_follower
 		if self.taskable_type == 'Project'
 			project = Project.find(self.taskable_id)
-			project.creator.follow(self)
+			unless project.creator.follower_of?(self)
+				project.creator.follow(self)
+			end
 		end
 	end
 	def set_progress

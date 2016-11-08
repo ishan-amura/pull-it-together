@@ -32,14 +32,14 @@ module Pits
     # Do not swallow errors in after_commit/after_rollback callbacks.
     #config.active_record.raise_in_transactional_callbacks = true
 
-
     # Quiet asset pipeline logs (uncomment to disable it)
-    # config.quiet_assets = false
+     config.quiet_assets = false
 
     # By default list of parent classes includes only `[ApplicationRecord, ActiveRecord::Base]`.
 
     # Observers 
     config.mongoid.observers = :task_observer, :comment_observer, :post_observer
+    config.mongoid.logger = Logger.new($stdout, :warn)
 
   end
 end

@@ -1,11 +1,11 @@
-class TaskObserver < ActiveRecord::Observer
+class TaskObserver < Mongoid::Observer
 	def after_save(task)
 		if task.user_id_changed? && task.user_id_was
 			user = User.find(task.user_id_was)
 			if task.parent_project.creator != user
-				user.stop_following(task)
+				user.unfollow(task)
 			end
-			task.followers.each do |follower|
+			task.all_followers.each do |follower|
 				notification_body = 	{
 					resource_id: task.id,
 					recipient_id: follower.id,
@@ -40,7 +40,7 @@ class TaskObserver < ActiveRecord::Observer
 		 	 #end
 		end
 		if task.status_changed? && task.status_was
-				task.followers.each do |follower|
+				task.all_followers.each do |follower|
 				notification_body = 	{
 					resource_id: task.id,
 					recipient_id: follower.id,

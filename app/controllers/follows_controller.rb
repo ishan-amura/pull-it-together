@@ -1,7 +1,9 @@
 class FollowsController < ApplicationController
 	before_action :authenticate_user!
 	def index 
-		@follows = current_user.follows.order(created_at: :desc)
+		@follows = current_user.followees.order(:created_at.desc).entries
+		puts "FOLLOWS *************************"
+		awesome_print(@follows)
 	end
 	def post 
 		@post = Post.find(params[:post_id])
@@ -10,7 +12,7 @@ class FollowsController < ApplicationController
 	end
 	def unfollow_post
 		@post = Post.find(params[:post_id])
-		current_user.stop_following(@post)
+		current_user.unfollow(@post)
 		redirect_to follows_path
 	end
 	def task 
@@ -20,7 +22,7 @@ class FollowsController < ApplicationController
 	end
 	def unfollow_task
 		@task = Task.find(params[:task_id])
-		current_user.stop_following(@task)
+		current_user.unfollow(@task)
 		redirect_to follows_path
 	end
 end

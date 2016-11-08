@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
 	before(:each) do
 		@user = create(:user)
-    @project = create(:project,user_id: @user.id)
-		@task = create(:task, user_id: @user.id)
+    @project = create(:project,creator_id: @user.id)
+		@task = create(:task, user_id: @user.id, taskable: @project, due_date: 1.days.from_now)
 	end
   context "Validate title " do
       it "is valid with title" do
@@ -49,8 +49,8 @@ RSpec.describe Task, type: :model do
   end
   context "Date validation checks Task Model" do
      it "is not valid with date" do
-        build(:task, started_at: "2016-10-15 10:01:38")
-        build(:task, due_date: "2016-09-30 10:01:38").should_not be_valid
+        build(:task, started_at: Time.now)
+        build(:task, due_date: 1.days.ago).should_not be_valid
      end
      it "is valid with date" do
         build(:task)
@@ -98,15 +98,15 @@ RSpec.describe Task, type: :model do
     end  
     it "returns project creator as follower" do 
       follow = build(:follow)
-      expect(follow.follower_id) == @project.creator.id
+      expect(follow.following_id) == @project.creator.id
     end 
     it "returns task progress" do
-      task = build(:task, status: "active",user_id: @user.id)
+      task = build(:task, status: "active",user_id: @user.id, taskable: @project)
       task.save!
       expect(task.progress) 
     end 
     it "returns task progress on status change" do
-      task = build(:task, status: "complete",user_id: @user.id)
+      task = build(:task, status: "complete",user_id: @user.id,taskable: @project)
       task.save!
       expect(task.progress) == 100 
     end 
@@ -115,7 +115,7 @@ RSpec.describe Task, type: :model do
       @user.tasks << task
       follow = build(:follow)
       task.save
-      expect(follow.follower_id) == task.user_id
+      expect(follow.following_id) == task.user_id
     end 
     
   end

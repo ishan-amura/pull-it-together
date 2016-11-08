@@ -4,7 +4,7 @@ RSpec.describe ApplicationHelper, type: :helper do
 	before(:each) do 
 		@user = create(:user)
 		login_user @user
-		@project = create(:project,user_id: @user)
+		@project = create(:project,creator_id: @user)
 		@task = create(:task,user_id:@user.id,taskable: @project)
 		@subtask = create(:task,user_id:@user.id,taskable: @task)
     @notification = create(:notification,recipient_id: @user.id, resource_id: @project.id)

@@ -6,10 +6,10 @@ $(document).on('turbolinks:load', function() {
 		min: Date.now(),
 		format: 'yyyy-mm-dd'
 	});
-	$('.modal-trigger').leanModal({
+	/*$('.modal-trigger').leanModal({
 		starting_top: '1%',
 		ending_top: '10%'
-	});
+	});*/
 	$('select').material_select();
 	$(".dropdown-button").dropdown();
 	$('ul.tabs').tabs();

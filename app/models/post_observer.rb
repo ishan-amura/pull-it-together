@@ -1,2 +1,3 @@
-class PostObserver < ActiveRecord::Observer
+class PostObserver < Mongoid::Observer
+
 end

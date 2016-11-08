@@ -1,4 +1,5 @@
-class ProjectUser < ActiveRecord::Base
+class ProjectUser
+	include Mongoid::Document
   belongs_to :user
   belongs_to :project
 

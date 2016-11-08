@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe CommentsController, type: :controller do
 	before(:each) do 
 		@user = create(:user)
-		@project = create(:project, user_id: @user.id)
+		@project = create(:project, creator_id: @user.id)
 		@user.confirm
 		@post = create(:post,user_id:@user.id,project_id:@project.id)
 		@comment = create(:comment,user_id: @user.id, commentable_type:'Post',commentable_id:@post.id)

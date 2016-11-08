@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe CommentObserver, type: :observer do
 	before(:each) do
 		@user = create(:user)
-    @project = create(:project,user_id: @user.id)
+    @project = create(:project,creator_id: @user.id)
     @post = create(:post,project_id: @project.id, user_id: @user.id)
 		@comment = create(:comment, user_id: @user.id, commentable:@post)
 	end

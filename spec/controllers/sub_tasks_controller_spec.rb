@@ -4,7 +4,7 @@ RSpec.describe SubTasksController, type: :controller do
 	before(:each) do 
 		@user = create(:user)
 		login_with @user
-		@project = create(:project,user_id: @user)
+		@project = create(:project,creator_id: @user)
 		@task = create(:task,user_id:@user.id,taskable:@project)
 		@subtask = create(:task,user_id:@user.id,taskable:@task)
 	end

@@ -1,12 +1,11 @@
-class Follow < ActiveRecord::Base
+class Follow
+	include Mongoid::Document
+	include Mongoid::Timestamps
 
-  extend ActsAsFollower::FollowerLib
-  extend ActsAsFollower::FollowScopes
+	belongs_to :followable, polymorphic: true
+	belongs_to :follower, polymorphic: true
 
-  # NOTE: Follows belong to the "followable" and "follower" interface
-  belongs_to :followable, :polymorphic => true
-  belongs_to :follower,   :polymorphic => true
-
-  
-
+	def follow(model)
+		
+	end	
 end

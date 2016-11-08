@@ -4,7 +4,7 @@ RSpec.describe PostsController, type: :controller do
 	before(:each) do 
 		@user = create(:user)
 		login_with @user
-		@project = create(:project, user_id: @user.id)
+		@project = create(:project, creator_id: @user.id)
 		@post = create(:post, user:@user,project: @project)
 	end
   describe "GET #index" do

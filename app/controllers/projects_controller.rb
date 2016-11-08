@@ -16,8 +16,8 @@ class ProjectsController < ApplicationController
   end
 
   def create
-  	@project = Project.new(project_params)
-  	@project.creator = current_user
+  	@project = current_user.projects.new(project_params)
+    @project.creator = current_user
   	if @project.save
   		flash[:success] = "Project Created"
   		redirect_to user_project_path(current_user,@project)
@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-  	@project = Project.find_by(user_id:params[:user_id],id:params[:id])
+  	@project = Project.find_by(creator_id:params[:user_id],id:params[:id])
   	if @project.destroy
   		redirect_to user_path(params[:user_id])
   	end
@@ -51,7 +51,6 @@ class ProjectsController < ApplicationController
   	data = params.require(:project).permit(:title,:description,:deadline,:started_at)
   	deadline = data[:deadline] +" "+Time.now.strftime("%H:%M:%S %z")
   	data.store(:deadline,deadline)
-  	data.store(:user_id,params[:user_id])
   	data
   end
 end

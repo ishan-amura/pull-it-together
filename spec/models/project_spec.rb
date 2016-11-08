@@ -43,10 +43,6 @@ require 'rails_helper'
         create(:project_with_tasks).tasks.length # 5
         create(:project_with_tasks, tasks_count: 15).tasks.length 
 	    end
-	    it "has many members " do
-	      assc = described_class.reflect_on_association(:project_users)
-	      expect(assc.macro).to eq :has_many
-	    end
 	    it "belongs to user" do
   	    project = create(:project)
   			project.new_record?       

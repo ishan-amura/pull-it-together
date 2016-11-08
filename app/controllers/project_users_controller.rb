@@ -6,11 +6,10 @@ class ProjectUsersController < ApplicationController
   end
 
   def create
-  	@project_user = ProjectUser.new()
-  	@project_user.project_id = params[:id]
-  	@project_user.user_id = params[:user_id]
+  	@project = Project.find(params[:id])
+  	@user = User.find(params[:user_id])
   	begin 
-  		@project_user.save!
+  		@project.add_member(@user)
   		redirect_to user_project_path(current_user,params[:id])
   	rescue Exception => e
   		if e.message.match('Validation failed')
