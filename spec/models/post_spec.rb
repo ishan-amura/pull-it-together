@@ -36,7 +36,7 @@ RSpec.describe Post, type: :model do
   context " Test instance methods " do  
     it "returns user as follower" do
       @user.follow(@post)
-      expect(@post.all_followers).to include(@user)
+      expect(@post.followers).to include(@user)
     end 
   end  
 end

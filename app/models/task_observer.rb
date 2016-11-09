@@ -5,7 +5,7 @@ class TaskObserver < Mongoid::Observer
 			if task.parent_project.creator != user
 				user.unfollow(task)
 			end
-			task.all_followers.each do |follower|
+			task.followers.each do |follower|
 				notification_body = 	{
 					resource_id: task.id,
 					recipient_id: follower.id,
@@ -40,7 +40,7 @@ class TaskObserver < Mongoid::Observer
 		 	 #end
 		end
 		if task.status_changed? && task.status_was
-				task.all_followers.each do |follower|
+				task.followers.each do |follower|
 				notification_body = 	{
 					resource_id: task.id,
 					recipient_id: follower.id,

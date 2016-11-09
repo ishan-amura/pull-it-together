@@ -1,12 +1,14 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongo::Followable::Follower
   include Mongoid::Autoinc
+  include ActsAsFollower::Follower
+  include ActsAsFollower::Followable
   field :user_id, type: Integer
   increments :user_id
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  acts_as_follower
   attr_accessor :initials
   after_find :set_initials
   devise :database_authenticatable, :registerable,

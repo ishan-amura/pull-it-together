@@ -40,7 +40,7 @@ RSpec.describe TaskObserver, type: :model do
       end
       it "should notify about assignee change" do 
       	@task.user = create(:user)
-      	#@task.all_followers.last.id = -1
+      	#@task.followers.last.id = -1
       	@times_called = 0
       	allow(Notification).to receive(:create) do 
       		@times_called +=  1

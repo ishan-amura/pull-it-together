@@ -1,3 +1,9 @@
+PATH
+  remote: /home/ishan/RailsContributions/acts_as_follower
+  specs:
+    acts_as_follower (0.2.7)
+      activerecord (>= 4.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -113,7 +119,6 @@ GEM
     minitest (5.9.1)
     mongo (2.3.1)
       bson (~> 4.1)
-    mongo_followable (0.3.2)
     mongoid (5.1.5)
       activemodel (~> 4.0)
       mongo (~> 2.1)
@@ -263,6 +268,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_follower!
   awesome_print
   byebug
   coffee-rails (~> 4.1.0)
@@ -272,7 +278,6 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   materialize-sass
-  mongo_followable
   mongoid (~> 5.1.0)
   mongoid-autoinc
   mongoid-observers (~> 0.2.0)

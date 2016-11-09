@@ -39,7 +39,7 @@ module Pits
 
     # Observers 
     config.mongoid.observers = :task_observer, :comment_observer, :post_observer
-    config.mongoid.logger = Logger.new($stdout, :warn)
+    #config.mongoid.logger = Logger.new($stdout, :warn)
 
   end
 end

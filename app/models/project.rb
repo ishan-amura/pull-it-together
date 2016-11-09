@@ -2,6 +2,8 @@ class Project
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	include Mongoid::Autoinc
+	include ActsAsFollower::Follower
+  include ActsAsFollower::Followable
   field :project_id, type: Integer
   increments :project_id
 
@@ -17,7 +19,6 @@ class Project
 	has_and_belongs_to_many :members, inverse_of: :projects, class_name:'User'
 	
 	has_many :posts, dependent: :destroy
-  include Mongo::Followable::Followed
   after_find :set_progress
   before_save :add_creator_to_members, if: :creator_id_changed?
 	validates :title,  presence: true, length: {maximum: 200}	
@@ -27,7 +28,9 @@ class Project
 	validates_datetime :deadline
 	validates_datetime :started_at
 	validates :creator_id, presence: true
-	
+	acts_as_followable
+
+
 	def add_creator_to_members
 		unless self.members.include?(self.creator)
 			self.members << self.creator

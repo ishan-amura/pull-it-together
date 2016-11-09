@@ -2,6 +2,8 @@ class Task
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	include Mongoid::Autoinc
+	include ActsAsFollower::Follower
+  include ActsAsFollower::Followable
   field :task_id,type: Integer
   increments :task_id
   
@@ -18,7 +20,7 @@ class Task
 	belongs_to :user
 	has_many :comments, as: :commentable
 	has_many :labels, as: :labelable
-  include Mongo::Followable::Followed
+
 	after_save :set_user_as_follower, if: :user_id_changed?
 	after_create :set_project_creator_as_follower
 	after_find :set_progress
@@ -31,6 +33,9 @@ class Task
 	validates :progress, presence: true ,
 	numericality: { only_integer: true }, length: {maximum: 3}
 	validates :user_id, presence: true
+
+	acts_as_followable
+
 	def parent_project
 		return self.taskable if self.taskable.class.name == 'Project'
 		self.taskable.parent_project
@@ -48,14 +53,14 @@ class Task
 	end
 	private
 	def set_user_as_follower
-		unless self.user.follower_of?(self)
+		unless self.user.following?(self)
 			self.user.follow(self)
 		end
 	end
 	def set_project_creator_as_follower
 		if self.taskable_type == 'Project'
 			project = Project.find(self.taskable_id)
-			unless project.creator.follower_of?(self)
+			unless project.creator.following?(self)
 				project.creator.follow(self)
 			end
 		end
