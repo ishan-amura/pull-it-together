@@ -42,8 +42,6 @@ gem 'validates_timeliness', '~> 4.0'
 gem 'pusher'
 gem 'mongoid', '~> 5.1.0'
 gem 'mongoid-autoinc'
-
-#gem 'acts_as_follower', path:'/home/ishan/RailsContributions/acts_as_follower'	
 gem 'mongoid-observers', '~> 0.2.0'
 
 group :development, :test do
