@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe TasksController, type: :controller do
 	before(:each) do 
 		@user = create(:user)
-		@project = create(:project, user_id: @user.id)
+		@project = create(:project, creator: @user)
 		@task = create(:task,user_id: @user.id,taskable: @project)
 		@user.confirm
 		login_with @user

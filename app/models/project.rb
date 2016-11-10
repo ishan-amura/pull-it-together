@@ -48,8 +48,12 @@ class Project
     end
 	end
 	def add_member user 
-		self.add_to_set(member_ids: user.id)
-		user.add_to_set(project_ids: self.id)
-		user.save
+		if self.members.include?(user)
+			raise Mongoid::Errors::Validations
+		else
+			self.add_to_set(member_ids: user.id)
+			user.add_to_set(project_ids: self.id)
+			user.save
+		end
 	end
 end

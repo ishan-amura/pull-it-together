@@ -9,7 +9,6 @@ RSpec.describe UsersController, type: :controller do
 	end
 	describe "GET #show" do
     it "responds successfully with an HTTP 200 status code" do
-    	puts @user.id
       get :show, id: @user.id
       expect(response).to be_success
     end

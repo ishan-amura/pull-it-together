@@ -4,7 +4,7 @@ RSpec.describe TaskCommentsController, type: :controller do
 	before(:each) do 
 		@user = create(:user)
 		login_with @user
-		@project = create(:project, user_id: @user.id)
+		@project = create(:project, creator: @user)
 		@task = create(:task,user_id: @user.id, taskable: @project)
 		@comment = create(:comment,user_id:@user.id, commentable: @task)
 	end

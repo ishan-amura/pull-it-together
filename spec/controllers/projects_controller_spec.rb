@@ -69,9 +69,9 @@ RSpec.describe ProjectsController, type: :controller do
 					title: "New title",
 			 		description: @project.description,
 			 		deadline: @project.deadline,
-			 		started_at: Time.now},
-			 	user_id: @user.id,id: @project.id}
-			expect(response).to redirect_to([@user,@user.projects.last])
+			 		started_at: @project.started_at },
+			 		user_id: @user.id,id: @project.id }
+			expect(response).to redirect_to([@user,@project])
 		end
 	end
 

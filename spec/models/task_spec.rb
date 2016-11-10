@@ -98,7 +98,7 @@ RSpec.describe Task, type: :model do
     end  
     it "returns project creator as follower" do 
       follow = build(:follow)
-      expect(follow.following_id) == @project.creator.id
+      expect(follow.follower_id) == @project.creator.id
     end 
     it "returns task progress" do
       task = build(:task, status: "active",user_id: @user.id, taskable: @project)
@@ -115,7 +115,7 @@ RSpec.describe Task, type: :model do
       @user.tasks << task
       follow = build(:follow)
       task.save
-      expect(follow.following_id) == task.user_id
+      expect(follow.follower_id) == task.user_id
     end 
     
   end

@@ -51,6 +51,7 @@ class ProjectsController < ApplicationController
   	data = params.require(:project).permit(:title,:description,:deadline,:started_at)
   	deadline = data[:deadline] +" "+Time.now.strftime("%H:%M:%S %z")
   	data.store(:deadline,deadline)
+  	data.store(:creator_id,params[:user_id])
   	data
   end
 end

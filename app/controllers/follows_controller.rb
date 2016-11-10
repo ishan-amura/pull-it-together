@@ -1,9 +1,7 @@
 class FollowsController < ApplicationController
 	before_action :authenticate_user!
 	def index 
-		@follows = current_user.followees.order(:created_at.desc).entries
-		puts "FOLLOWS *************************"
-		awesome_print(@follows)
+		@follows = current_user.follows.order(:created_at.desc).entries
 	end
 	def post 
 		@post = Post.find(params[:post_id])

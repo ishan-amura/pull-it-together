@@ -56,8 +56,7 @@ class User
 		self.initials = self.name.split(' ').first[0] + self.name.split(' ').last[0]
   end
   def tasks_due_soon
-  	Task.where('user_id = ? AND due_date >= ?',id,Time.now)
-  	.where.not(status:"complete").order(:due_date)
+  	Task.where({user_id: id , :due_date.gte => Time.now, :status.nin => ["complete"]}).order(:due_date.desc).entries
   end
   def all_projects
   	Project.any_of(member_ids: self.id)

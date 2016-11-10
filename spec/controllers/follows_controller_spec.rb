@@ -4,7 +4,8 @@ RSpec.describe FollowsController, type: :controller do
 	before(:each) do 
 		@user = create(:user)
 		@post = create(:post,user_id:@user.id)
-		@task = create(:task,user_id:@user.id)
+		@project = create(:project, creator: @user)
+		@task = create(:task,user_id:@user.id, taskable: @project)
 		login_with @user
 	end
   describe "GET #index" do
