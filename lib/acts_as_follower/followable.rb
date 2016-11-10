@@ -1,18 +1,6 @@
 module ActsAsFollower #:nodoc:
   module Followable
 
-    def self.included(base)
-      base.extend ClassMethods
-    end
-
-    module ClassMethods
-      def acts_as_followable
-        has_many :followings, as: :followable, dependent: :destroy, class_name: 'Follow'
-        include ActsAsFollower::Followable::InstanceMethods
-        include ActsAsFollower::FollowerLib
-      end
-    end
-
     module InstanceMethods
 
       # Returns the number of followers a record has.

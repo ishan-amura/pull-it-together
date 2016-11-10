@@ -2,8 +2,8 @@ class Post
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	include Mongoid::Autoinc
-	include ActsAsFollower::Follower
-  include ActsAsFollower::Followable
+	#include ActsAsFollower::Follower
+  #include ActsAsFollower::Followable
   field :post_id, type: Integer
   increments :post_id
  	

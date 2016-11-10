@@ -2,11 +2,9 @@ class Task
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	include Mongoid::Autoinc
-	include ActsAsFollower::Follower
-  include ActsAsFollower::Followable
   field :task_id,type: Integer
   increments :task_id
-  
+ 
   field :title, type: String
   field :priority, type: String, default:->{"normal"}
   field :status, type: String, default:->{"none"}
@@ -33,7 +31,7 @@ class Task
 	validates :progress, presence: true ,
 	numericality: { only_integer: true }, length: {maximum: 3}
 	validates :user_id, presence: true
-
+	
 	acts_as_followable
 
 	def parent_project

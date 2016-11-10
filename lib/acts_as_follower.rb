@@ -1,3 +1,4 @@
+=begin
 require "acts_as_follower/version"
 
 module ActsAsFollower
@@ -28,3 +29,11 @@ module ActsAsFollower
 
   require 'acts_as_follower/railtie' if defined?(Rails) && Rails::VERSION::MAJOR >= 3
 end
+=end
+
+require File.expand_path('../acts_as_follower/model_helpers',   __FILE__)
+require File.expand_path("../acts_as_follower/follower",   __FILE__)
+require File.expand_path('../acts_as_follower/followable',   __FILE__)
+require File.expand_path("../acts_as_follower/follower_lib",   __FILE__)
+require File.expand_path('../acts_as_follower/follow_scopes',   __FILE__)
+

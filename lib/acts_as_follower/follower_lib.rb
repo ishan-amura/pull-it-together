@@ -3,7 +3,7 @@ module ActsAsFollower
 
     private
 
-    DEFAULT_PARENTS = [Mongoid, ActiveModel, Mongo, Object]
+    DEFAULT_PARENTS = [Mongoid, ActiveModel, Mongo, Object, Project, Post, Task]
 
     # Retrieves the parent class name if using STI.
     def parent_class_name(obj)
@@ -33,9 +33,7 @@ module ActsAsFollower
     end
 
     def parent_classes
-      return DEFAULT_PARENTS unless ActsAsFollower.custom_parent_classes
-
-      ActsAsFollower.custom_parent_classes + DEFAULT_PARENTS
+      DEFAULT_PARENTS
     end
   end
 end

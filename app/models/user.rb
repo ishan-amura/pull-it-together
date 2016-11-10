@@ -2,8 +2,6 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Autoinc
-  include ActsAsFollower::Follower
-  include ActsAsFollower::Followable
   field :user_id, type: Integer
   increments :user_id
   # Include default devise modules. Others available are:

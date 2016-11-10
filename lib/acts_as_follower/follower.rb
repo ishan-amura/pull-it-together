@@ -1,18 +1,6 @@
 module ActsAsFollower #:nodoc:
   module Follower
 
-    def self.included(base)
-      base.extend ClassMethods
-    end
-
-    module ClassMethods
-      def acts_as_follower
-        has_many :follows, as: :follower, dependent: :destroy
-        include ActsAsFollower::Follower::InstanceMethods
-        include ActsAsFollower::FollowerLib
-      end
-    end
-
     module InstanceMethods
 
       # Returns true if this instance is following the object passed as an argument.

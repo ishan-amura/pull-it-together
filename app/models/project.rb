@@ -2,8 +2,6 @@ class Project
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	include Mongoid::Autoinc
-	include ActsAsFollower::Follower
-  include ActsAsFollower::Followable
   field :project_id, type: Integer
   increments :project_id
 
